@@ -1,41 +1,59 @@
 public class Product {
-    private String nameProduct;
+    private String name;
     private double price;
-    private int code;
+    private Integer code;
+    private int stock;
 
-    public Product(){}
-
-    public Product(String nameProduct, double price, int code){
-
+    public Product(String name, double price, Integer code, int stock){
+        setName(name);
+        setPrice(price);
+        setCode(code);
+        setStock(stock);
     }
 
-    public void setNameProduct(String nameProduct){
-        if(nameProduct == null || nameProduct.isBlank()){
-            throw new IllegalArgumentException("Product name cannot be empty");
-        }
-        this.nameProduct = nameProduct;
+    public int getStock() {
+        return stock;
     }
 
-    public String getNameProduct(){
-        return nameProduct;
+    public void setStock(int stock) {
+        if(stock < 0) throw new IllegalArgumentException("There is no more of this product in the inventory");
+        this.stock = stock;
     }
 
-    public void setPrice(double price){
-        if(price <= 0) throw new IllegalArgumentException("the product cannot be free");
+    public int getCode() {
+        return code;
+    }
 
-        this.price = price;
+    public void setCode(int code) {
+            if( code < 0) throw new IllegalArgumentException("The code can't be less than 0");
+            this.code = code;
+
     }
 
     public double getPrice() {
         return price;
     }
 
-    public void setCode(int code) {
-        if(code <= 0) throw new IllegalArgumentException("the code can't be less than 0");
-        this.code = code;
+    public void setPrice(double price) {
+        if(price <= 0) throw new IllegalArgumentException("The price can't be less than 0");
+        this.price = price;
     }
 
-    public int getCode() {
-        return code;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if(name == null || name.isEmpty()) throw new IllegalArgumentException("Must write the name of the product");
+
+        this.name = name.trim().substring(0, 1).toUpperCase() + name.trim().substring(1).toLowerCase();
+    }
+
+    @Override
+    public String toString(){
+        return "\nName: " + getName() + "\n" +
+                "Price: " + getPrice() + "\n" +
+                "Code: " + getCode() + "\n" +
+                "Stock: " + getStock() + "\n";
     }
 }
