@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,7 +11,8 @@ public class Main {
     static Employee employee;
 
     public static void main(String[] args) {
-
+        inventory.readProductJson();
+        employeeManager.readEmployeeJson();
         try {
             if (!employeeManager.thereAreEmployee()) {
                 System.out.print(employeeManager.thereAreEmployee());
@@ -58,8 +60,10 @@ public class Main {
         }
     }
 
+
     static void menuManager()throws IllegalArgumentException, InputMismatchException{
-        while (true) {
+        boolean finalMenu = true;
+        do {
             System.out.println("\n=-=-=-=-= Manager =-=-=-=-=");
             System.out.println("1. Add new employee");
             System.out.println("2. Add new product");
@@ -67,7 +71,7 @@ public class Main {
             System.out.println("4. Remove product");
             System.out.println("5. Sell product");
             System.out.println("6. Show product");
-            System.out.print("7. Go back");
+            System.out.println("7. Go back");
             System.out.print("Choos your option: ");
             int option = sc.nextInt();
             sc.nextLine();
@@ -124,14 +128,15 @@ public class Main {
 
                 case 7:
                     System.out.print("Regresando.....");
-                    return;
+                    finalMenu = false;
+                    break;
 
                 default:
                     System.out.print("Choos correct option");
                     break;
 
             }
-        }
+        } while (finalMenu);
     }
 
     static void menuSeller() throws IllegalArgumentException, InputMismatchException{

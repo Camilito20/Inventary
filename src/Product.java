@@ -1,10 +1,10 @@
 public class Product {
     private String name;
     private double price;
-    private Integer code;
+    private int code;
     private int stock;
 
-    public Product(String name, double price, Integer code, int stock){
+    public Product(String name, double price, int code, int stock){
         setName(name);
         setPrice(price);
         setCode(code);

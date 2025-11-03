@@ -1,0 +1,32 @@
+[
+    {
+        "Price": 12.5,
+        "Code": 12,
+        "Stock": 15,
+        "Name": "Papa"
+    },
+    {
+        "Price": 500,
+        "Code": 25,
+        "Stock": 32,
+        "Name": "Pollo"
+    },
+    {
+        "Price": 50,
+        "Code": 13,
+        "Stock": 20,
+        "Name": "Sal"
+    },
+    {
+        "Price": 30,
+        "Code": 25,
+        "Stock": 12,
+        "Name": "Tomate"
+    },
+    {
+        "Price": 600,
+        "Code": 300,
+        "Stock": 30,
+        "Name": "Salchicha"
+    }
+]
