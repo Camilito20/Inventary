@@ -1,10 +1,10 @@
 public class Product {
     private String name;
     private double price;
-    private int code;
+    private Integer code;
     private int stock;
 
-    public Product(String name, double price, int code, int stock){
+    public Product(String name, double price, Integer code, int stock){
         setName(name);
         setPrice(price);
         setCode(code);
@@ -25,8 +25,8 @@ public class Product {
     }
 
     public void setCode(int code) {
-            if( code < 0) throw new IllegalArgumentException("The code can't be less than 0");
-            this.code = code;
+        if( code < 0) throw new IllegalArgumentException("The code can't be less than 0");
+        this.code = code;
 
     }
 
