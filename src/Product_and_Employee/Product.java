@@ -1,3 +1,5 @@
+package Product_and_Employee;
+
 public class Product {
     private String name;
     private double price;

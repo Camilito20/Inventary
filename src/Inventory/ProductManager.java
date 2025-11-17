@@ -1,17 +1,24 @@
+package Inventory;
+
+import Product_and_Employee.Product;
+import org.json.*;
+
+import java.io.*;
 import java.util.ArrayList;
 
-public class Inventory {
+public class ProductManager {
     final ArrayList<Product> products = new ArrayList<>();
 
-    public Inventory(){}
+    public ProductManager(){}
 
     public void addProduct(Product p){
-        if(p == null) throw new IllegalArgumentException("Product cannot be null");
+        if(p == null) throw new IllegalArgumentException("Product_and_Employee.Product cannot be null");
         for(Product prod : products){
             if(p.getCode() == prod.getCode()) throw new IllegalArgumentException("The code existing in another product");
         }
 
         products.add(p);
+        addProductJson(p);
     }
 
     public void removeProduct(String nameProductToBeRemove){
@@ -31,7 +38,8 @@ public class Inventory {
         }
 
         if (!search) throw new IllegalArgumentException("The product wasn't find");
-        else if(productToBeRemove != null) products.remove(productToBeRemove);
+        products.remove(productToBeRemove);
+        loadProductJson();
 
     }
     public void removeProduct(Integer code){
@@ -40,7 +48,7 @@ public class Inventory {
 
         String stringCode = String.valueOf(code);
 
-        if(stringCode.length() != 6) throw new IllegalArgumentException("The code product must have 6 digits");
+       // if(stringCode.length() != 6) throw new IllegalArgumentException("The code product must have 6 digits");
 
         boolean search = false;
         Product productToBeRemove = null;
@@ -54,8 +62,8 @@ public class Inventory {
             }
         }
         if (!search) throw new IllegalArgumentException("The product wasn't find");
-        else if(productToBeRemove != null) products.remove(productToBeRemove);
-
+        products.remove(productToBeRemove);
+        loadProductJson();
     }
 
     public Product searchProduct(Integer code){
@@ -67,7 +75,7 @@ public class Inventory {
             }
         }
 
-        throw new IllegalArgumentException("Product wasn't find");
+        throw new IllegalArgumentException("Product_and_Employee.Product wasn't find");
 
     }
     public Product searchProduct(String name){
@@ -78,7 +86,7 @@ public class Inventory {
                 return p;
             }
         }
-        throw new IllegalArgumentException("Product wasn't find");
+        throw new IllegalArgumentException("Product_and_Employee.Product wasn't find");
     }
 
     public void sellProduct(int code, int numPoductSold){
@@ -88,5 +96,93 @@ public class Inventory {
 
         product.setStock(product.getStock() - numPoductSold);
         System.out.print("Now there are " + product.getStock() + " products in stock");
+        loadProductJson();
+    }
+
+    public void reloadProduct(){
+        reloadProductJson();
+    }
+    /*
+    Aqui comienza implementacion de los productos en JOSN
+     */
+    private void addProductJson(Product product) {
+        try{
+            File file = new File("Products.json");
+
+            JSONArray jsonArray = new JSONArray();
+
+            if(file.exists()){
+                try (FileReader reader = new FileReader(file)) {
+                    JSONTokener tokener = new JSONTokener(reader);
+                    jsonArray = new JSONArray(tokener);
+                }
+            }
+
+            JSONObject p = new JSONObject();
+            p.put("Name", product.getName());
+            p.put("Price", product.getPrice());
+            p.put("Code", product.getCode());
+            p.put("Stock", product.getPrice());
+
+            jsonArray.put(p);
+
+            try (FileWriter writer = new FileWriter(file)){
+                writer.write(jsonArray.toString(4));
+
+            }
+        }catch (IOException e){
+            System.out.println("Error: "  + e.getMessage());
+        }
+    }
+
+    private void loadProductJson(){
+        try {
+            File file = new File("Products.json");
+
+            JSONArray jsonArray = new JSONArray();
+            for(Product p : products){
+                JSONObject object = new JSONObject();
+                object.put("Name", p.getName());
+                object.put("Price", p.getPrice());
+                object.put("Code", p.getCode());
+                object.put("Stock", p.getPrice());
+
+                jsonArray.put(object);
+            }
+
+            try (FileWriter writer = new FileWriter(file)){
+                writer.write(jsonArray.toString(4));
+            }
+        } catch (IOException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    private void reloadProductJson() {
+        products.clear();
+
+        File file = new File("Products.json");
+
+        if (!file.exists()) return;
+
+        try (FileReader reader = new FileReader(file)) {
+            JSONTokener tokener = new JSONTokener(reader);
+            JSONArray jsonArray = new JSONArray(tokener);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+
+                String name = object.getString("Name");
+                double price = object.getDouble("Price");
+                int code = object.getInt("Code");
+                int stock = object.getInt("Stock");
+
+                Product p = new Product(name, price, code, stock);
+                products.add(p);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
