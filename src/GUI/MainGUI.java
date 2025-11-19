@@ -20,7 +20,7 @@ public class MainGUI extends JFrame {
 
         // 2️⃣ Configuración básica de la ventana
         setTitle("Sistema de Inventario 📦");   // ← nombre de la ventana
-        setSize(1000, 700);                     // ← tamaño en píxeles
+        setSize(800, 600);                     // ← tamaño en píxeles
         setLocationRelativeTo(null);            // ← centrada en la pantalla
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ← cerrar programa al salir
         setLayout(new BorderLayout());          // ← distribuye contenido por regiones
@@ -34,14 +34,14 @@ public class MainGUI extends JFrame {
         mainPanel.putClientProperty("JPanel.style", "arc: 20; border: 4, #6478E1;");
 
         // 4️⃣ Agregar las “pantallas” internas
-        mainPanel.setBackground(new Color(248, 229, 126));;
+        mainPanel.setBackground(new Color(149, 149, 246));;
         mainPanel.setBorder(BorderFactory.createLineBorder(new Color(156, 0, 255)));
 
         UIManager.put("Panel.arc", 100);
 
         //Cuadrado Central del de la ventana
         JPanel cuadrado = new JPanel();
-        cuadrado.setPreferredSize(new Dimension(400, 500));
+        cuadrado.setPreferredSize(new Dimension(400, 400));
         cuadrado.setBorder(BorderFactory.createMatteBorder(0,0,5,5, new Color(248, 164, 164, 63)));
         cuadrado.putClientProperty("JPanel.style",
                 "arc: 50; border: 10, #6478E1; background: #F0F3FF;");
@@ -62,7 +62,7 @@ public class MainGUI extends JFrame {
 
         //Para que el usuario escriba su nombre de usuario
         JTextField usuario = new JTextField();
-        usuario.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        usuario.setFont(new Font("Segoe UI", Font.PLAIN, 20));
         usuario.setBounds(50, 150, 300, 24);
         usuario.setBackground(null);
         usuario.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(0,0,0)));
@@ -70,7 +70,7 @@ public class MainGUI extends JFrame {
 
         //Para que el usuario escriba la contraseña
         JTextField password = new JTextField();
-        password.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        password.setFont(new Font("Segoe UI", Font.PLAIN, 20));
         password.setBounds(50, 200, 300, 24);
         password.setBackground(null);
         password.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(0,0,0)));
@@ -90,6 +90,21 @@ public class MainGUI extends JFrame {
         buttonSalir.setBackground(new Color(251, 207, 207));
         buttonSalir.setBorder(null);
 
+        //Accionoes de los botones
+
+        btnInicioSesion.addActionListener( e ->{
+            if("Hola".equals(usuario.getText()) && "Chao".equals(password.getText())){
+                dispose();
+                new InventoryManagerGUI();
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Esta mal el usuario o la contraseña",
+                        "Error en de inicio",
+                        JOptionPane.WARNING_MESSAGE
+                );
+            }
+
+        });
         buttonSalir.addActionListener(e -> System.exit(0));
 
         cuadrado.add(etiquetaInicio);
