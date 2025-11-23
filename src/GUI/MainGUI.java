@@ -1,6 +1,8 @@
 package GUI;
 import javax.swing.*;
 import java.awt.*;
+
+import Inventory.ProductManager;
 import com.formdev.flatlaf.FlatLightLaf; // si usas FlatLaf
 
 public class MainGUI extends JFrame {
@@ -33,7 +35,7 @@ public class MainGUI extends JFrame {
         // Opcional: redondear bordes con FlatLaf
         mainPanel.putClientProperty("JPanel.style", "arc: 20; border: 4, #6478E1;");
 
-        // 4️⃣ Agregar las “pantallas” internas
+        // Agregar las “pantallas” internas
         mainPanel.setBackground(new Color(149, 149, 246));;
         mainPanel.setBorder(BorderFactory.createLineBorder(new Color(156, 0, 255)));
 
@@ -145,7 +147,10 @@ public class MainGUI extends JFrame {
 
     // 🔹 Método principal para ejecutar el programa
     public static void main(String[] args) {
+        ProductManager productManager = new ProductManager();
+        productManager.reloadProduct();
         SwingUtilities.invokeLater(MainGUI::new);
     }
+
 }
 
