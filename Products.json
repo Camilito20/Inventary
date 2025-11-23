@@ -1,6 +1,14 @@
-[{
-    "Price": 40,
-    "Code": 2,
-    "Stock": 40,
-    "Name": "Pan"
-}]
+[
+    {
+        "Price": 49.9,
+        "Code": 2,
+        "Stock": 49.9,
+        "Name": "Tomate"
+    },
+    {
+        "Price": 40,
+        "Code": 1,
+        "Stock": 40,
+        "Name": "Pan"
+    }
+]

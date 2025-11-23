@@ -10,9 +10,9 @@ public class Main {
     public static void main(String[] args) {
         ProductManager productManager = new ProductManager();
         productManager.reloadProduct();
-        Product removeBeProduct = new Product("Papa", 50.0, 1,50);
+        Product removeBeProduct = new Product("Pan", 40.0, 1, 600);
         Product newProduct = new Product("Pan", 40.0, 2, 600);
-        productManager.removeProduct(removeBeProduct.getCode());
+        productManager.addProduct(removeBeProduct);
 
     }
 }

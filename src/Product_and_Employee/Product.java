@@ -53,9 +53,9 @@ public class Product {
 
     @Override
     public String toString(){
-        return "\nName: " + getName() + "\n" +
-                "Price: " + getPrice() + "\n" +
-                "Code: " + getCode() + "\n" +
-                "Stock: " + getStock() + "\n";
+        return " | " + getName() + "|" +
+                " | " + getPrice() + " | " +
+                " | " + getCode() + " | " +
+                " | " + getStock() + " | ";
     }
 }

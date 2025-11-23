@@ -11,6 +11,7 @@ public class ProductManager {
 
     public ProductManager(){}
 
+    //Agrega productos al Array
     public void addProduct(Product p){
         if(p == null) throw new IllegalArgumentException("Product_and_Employee.Product cannot be null");
         for(Product prod : products){
@@ -21,6 +22,10 @@ public class ProductManager {
         addProductJson(p);
     }
 
+    public ArrayList<Product> allProduct(){
+        return this.products;
+    }
+    //Remueven productos del array
     public void removeProduct(String nameProductToBeRemove){
         if(nameProductToBeRemove == null || nameProductToBeRemove.isEmpty()) throw new IllegalArgumentException("Must write the name of the product");
 
@@ -66,6 +71,7 @@ public class ProductManager {
         loadProductJson();
     }
 
+    //Buscan Productos del array
     public Product searchProduct(Integer code){
         if(code == null) throw new IllegalArgumentException("Must write the code of the product");
 
@@ -89,6 +95,7 @@ public class ProductManager {
         throw new IllegalArgumentException("Product_and_Employee.Product wasn't find");
     }
 
+    //Bajan el stock de algun producto del Array cuando se vende
     public void sellProduct(int code, int numPoductSold){
         Product product = searchProduct(code);
 
@@ -99,6 +106,8 @@ public class ProductManager {
         loadProductJson();
     }
 
+    //----------- Parte JSON -----------
+    //Recarga el JSON
     public void reloadProduct(){
         reloadProductJson();
     }
@@ -180,9 +189,9 @@ public class ProductManager {
                 products.add(p);
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 }
